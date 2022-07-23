@@ -5,15 +5,18 @@ import { BiTask } from "react-icons/bi";
 import { IoIosAddCircle } from "react-icons/io";
 import {HiOutlineLogout} from "react-icons/hi";
 import {FaUserCog} from "react-icons/fa";
+import {FaUsers} from "react-icons/fa";
+import {GiDoctorFace} from "react-icons/gi";
 import { useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import { Link } from "react-router-dom";
+import { ImenuItems } from '../../interfaces/menuItems';
 
 export const Sidebar = () => {
   const location = useLocation();
 
-  const dispatch = useAppDispatch();
   const {sideBarIsToggled} = useAppSelector(state => state.index);
+  const {user} = useAppSelector(state => state.auth);
 
   const styles: React.CSSProperties | undefined = {
     height: "95vh",
@@ -30,7 +33,6 @@ export const Sidebar = () => {
     overflowX: "hidden",
     WebkitOverflowScrolling: "touch",
     transition: "0.3s ease-in-out",
-    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.05)",
     willChange: "left, top, width",
     transform: "translate3d(0px, 0px, 0px)",
     transitionProperty: "left, top, width",
@@ -38,33 +40,61 @@ export const Sidebar = () => {
     transitionTimingFunction: "ease-in-out",
     transitionDelay: "0s",
   };
-  const navItems = [
+  const usersMenuItems = [
     {
       name: "Home",
-      href: "/",
+      path: "/",
       icon: <GrHomeOption />,
     },
     {
       name: "Appointments",
-      href: "/appointments",
+      path: "/appointments",
       icon: <BiTask />,
     },
     {
       name: "Apply ",
-      href: "/apply",
+      path: "/apply",
       icon: <IoIosAddCircle />,
     },
     {
         name: "Profile",
-        href: "/profile",
+        path: "/profile",
         icon: <FaUserCog />,
     }
+  ];
+
+  const adminMenuItems = [
+    {
+      name: "Home",
+      path: "/",
+      icon: <GrHomeOption />,
+    },
+    {
+      name: "Users",
+      path: "/users",
+      icon: <FaUsers />,
+    },
+    {
+      name: "Doctors",
+      path: "/doctors",
+      icon: <GiDoctorFace />,
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      icon: <FaUserCog />,
+    },
   ];
 
   const logoutUser = () => {
     localStorage.removeItem("token");
     window.location.reload();
   };
+
+  //menu items to display based on user type
+  const menuItemsToBeRender:ImenuItems[] = user?.isAdmin
+    ? adminMenuItems
+    : usersMenuItems;
 
   return (
     <Box rounded={"md"} style={styles}>
@@ -85,8 +115,8 @@ export const Sidebar = () => {
         </Heading>
       )}
       <Box mt={"80px"}>
-        {navItems.map((item, index) => {
-          const isActive = location.pathname === item.href;
+        {menuItemsToBeRender.map((item, index) => {
+          const isActive = location.pathname === item.path;
           return (
             <Box
               bg={isActive ? "blue.500" : "transparent"}
@@ -107,11 +137,11 @@ export const Sidebar = () => {
                 color={"#1d3557"}
                 mr={sideBarIsToggled ? "0px" : 5}
                 as={Link}
-                to={item.href}
+                to={item.path}
               >
                 {item.icon}
               </Box>
-              {!sideBarIsToggled && <Link to={item.href}>{item.name}</Link>}
+              {!sideBarIsToggled && <Link to={item.path}>{item.name}</Link>}
             </Box>
           );
         })}

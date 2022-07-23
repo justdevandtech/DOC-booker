@@ -7,6 +7,9 @@ import { Apply } from '../../pages/Apply';
 import {BiCollapse} from 'react-icons/bi';
 import { toggle } from '../../features/common/indexSlice';
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { Profile } from '../../pages/Profile';
+import { Doctors } from '../../pages/Doctors';
+import { Users } from '../../pages/Users';
 
 export const Main = () => {
   const dispatch = useAppDispatch();
@@ -41,6 +44,9 @@ export const Main = () => {
         <Routes>
           <Route path='/appointments' element={<Appointment />} />
           <Route path='/apply' element={<Apply />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/doctors' element={<Doctors />} />
+          <Route path='/users' element={<Users />} />
         </Routes>
       </Container>
     </Box>

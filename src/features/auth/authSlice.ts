@@ -1,17 +1,18 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../../app/store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 
 interface IuserProps {
     first_name: string;
     last_name: string;
     email: string;
+    isAdmin: boolean;
 }
 const initialState = {
   user: null as IuserProps | null,
 };
 
 export const authSlice = createSlice({
-  name: "modal",
+  name: "auth",
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<IuserProps | null>) => {
