@@ -18,7 +18,7 @@ export const ProtectedRouted = ({
   const { user } = useAppSelector(state => state.auth);
   const [isLoading, setIsLoading] = useState(false);
 
-
+  /******************************************************* */
   const getUser = useCallback(async (): Promise<void> => {
     try {
       setIsLoading(true);
@@ -45,7 +45,9 @@ export const ProtectedRouted = ({
       console.log(error);
     }
   }, [dispatch, navigate, token]);
+  /******************************************************* */
 
+  /******************************************************* */
   useEffect(() => {
     if (!user) {
       getUser();
@@ -55,6 +57,7 @@ export const ProtectedRouted = ({
       navigate("/login");
     }
   }, [token, navigate, user, getUser, dispatch]);
+  /******************************************************* */
 
   if (isLoading) {
     return <Loading />;

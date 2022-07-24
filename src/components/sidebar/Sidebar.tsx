@@ -3,20 +3,20 @@ import { Box, Button, Center, Heading, Text } from "@chakra-ui/react";
 import { GrHomeOption } from "react-icons/gr";
 import { BiTask } from "react-icons/bi";
 import { IoIosAddCircle } from "react-icons/io";
-import {HiOutlineLogout} from "react-icons/hi";
-import {FaUserCog} from "react-icons/fa";
-import {FaUsers} from "react-icons/fa";
-import {GiDoctorFace} from "react-icons/gi";
+import { HiOutlineLogout } from "react-icons/hi";
+import { FaUserCog } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
+import { GiDoctorFace } from "react-icons/gi";
 import { useLocation } from "react-router-dom";
-import { useAppSelector } from '../../app/hooks';
+import { useAppSelector } from "../../app/hooks";
 import { Link } from "react-router-dom";
-import { ImenuItems } from '../../interfaces/menuItems';
+import { ImenuItems } from "../../interfaces/menuItems";
 
 export const Sidebar = () => {
   const location = useLocation();
 
-  const {sideBarIsToggled} = useAppSelector(state => state.index);
-  const {user} = useAppSelector(state => state.auth);
+  const { sideBarIsToggled } = useAppSelector(state => state.index);
+  const { user } = useAppSelector(state => state.auth);
 
   const styles: React.CSSProperties | undefined = {
     height: "95vh",
@@ -57,10 +57,10 @@ export const Sidebar = () => {
       icon: <IoIosAddCircle />,
     },
     {
-        name: "Profile",
-        path: "/profile",
-        icon: <FaUserCog />,
-    }
+      name: "Profile",
+      path: "/profile",
+      icon: <FaUserCog />,
+    },
   ];
 
   const adminMenuItems = [
@@ -92,7 +92,7 @@ export const Sidebar = () => {
   };
 
   //menu items to display based on user type
-  const menuItemsToBeRender:ImenuItems[] = user?.isAdmin
+  const menuItemsToBeRender: ImenuItems[] = user?.isAdmin
     ? adminMenuItems
     : usersMenuItems;
 

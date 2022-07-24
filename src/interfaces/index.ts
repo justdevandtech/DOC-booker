@@ -11,3 +11,11 @@ export interface ILoginUser {
   password: string;
   remember_me: boolean;
 }
+
+export interface IuserProps {
+  first_name: string;
+  last_name: string;
+  email: string;
+  isAdmin: boolean;
+  userId: string | null;
+}

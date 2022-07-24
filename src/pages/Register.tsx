@@ -34,7 +34,9 @@ export const Register = (): JSX.Element => {
     password: "",
     confirm_password: "",
   });
-  const handleFormData = (e: IRegisterUser | any): void => {
+  const handleFormData = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,

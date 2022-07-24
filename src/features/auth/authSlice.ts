@@ -1,12 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
+import { IuserProps } from '../../interfaces/index';
 
-interface IuserProps {
-    first_name: string;
-    last_name: string;
-    email: string;
-    isAdmin: boolean;
-}
+
 const initialState = {
   user: null as IuserProps | null,
 };
