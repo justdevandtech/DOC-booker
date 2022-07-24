@@ -27,6 +27,7 @@ export const Register = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  /******************************************************** */
   const [formData, setFormData] = useState<IRegisterUser>({
     first_name: "",
     last_name: "",
@@ -34,15 +35,18 @@ export const Register = (): JSX.Element => {
     password: "",
     confirm_password: "",
   });
-  const handleFormData = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  /******************************************************** */
+
+  /******************************************************** */
+  const handleFormData = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
+  /******************************************************** */
 
+  /******************************************************** */
   const submitFormData = async (e: any | IRegisterUser): Promise<void> => {
     e.preventDefault();
     //check if user filled out all fields
@@ -89,6 +93,8 @@ export const Register = (): JSX.Element => {
       });
     }
   };
+  /******************************************************** */
+
   const colorMode = useColorModeValue("white", "gray.700");
   if (isLoading) {
     return <Loading />;

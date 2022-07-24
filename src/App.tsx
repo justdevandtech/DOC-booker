@@ -7,15 +7,16 @@ import { Layout } from './components/Layout';
 import { Toaster } from 'react-hot-toast';
 import { ProtectedRouted } from './components/ProtectedRouted';
 import { PublicRoute } from './components/PublicRoute';
-import { Appointment } from './pages/Appointment';
 import { Loading } from './components/Loading';
 import { useEffect, useState } from "react";
 
+/**************************************** */
 const appStyles = {
   backgroundColor: "#fafafa",
   minHeight: "100vh",
   display: "flex",
 };
+/**************************************** */
 
 function App() {
   //show loading screen while dom is loading
@@ -57,7 +58,6 @@ function App() {
               </PublicRoute>
             }
           />
-          {/* <Route path='/appointments' element={<Appointment />} /> */}
         </Routes>
       <Toaster position='top-center' reverseOrder={false} />
     </Box>

@@ -10,6 +10,8 @@ export const Apply = ():JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { user } = useAppSelector(state => state.auth);
   const navigate = useNavigate();
+
+  /******************************************************** */
   const [applyFormData, setApplyFormData] = useState({
     userId: user?.userId,
     first_name: "",
@@ -23,25 +25,40 @@ export const Apply = ():JSX.Element => {
     fromTime: "",
     toTime: "",
   });
-  const { first_name, last_name, email, phone, address, experience, feeCharge, specialization, fromTime, toTime } = applyFormData;
+  /******************************************************** */
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
+  /******************************************************** */
+  const {
+    first_name,
+    last_name,
+    email,
+    phone,
+    address,
+    experience,
+    feeCharge,
+    specialization,
+    fromTime,
+    toTime,
+  } = applyFormData;
+  /******************************************************** */
+
+  /******************************************************** */
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setApplyFormData({
       ...applyFormData,
       [e.target.name]: e.target.value,
     });
-  }
+  };
+  /******************************************************** */
 
+  /******************************************************** */
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.post(
-        "/api/doctor/apply",
-          applyFormData,
-      );
+      const response = await axios.post("/api/doctor/apply", applyFormData);
       if (response.data.success) {
         setIsLoading(false);
         toast.success("Application submitted successfully");
@@ -69,8 +86,10 @@ export const Apply = ():JSX.Element => {
       toast.error("Something went wrong");
     }
   };
-  if(isLoading) {
-    return <Loading />
+  /******************************************************** */
+
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (

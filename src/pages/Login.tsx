@@ -20,12 +20,18 @@ import { Loading } from "../components/Loading";
 import { useNavigate } from "react-router-dom";
 
 export const Login = (): JSX.Element => {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  /************************************************** */
   const [formData, setFormData] = useState<ILoginUser>({
     email: "",
     password: "",
     remember_me: false,
   });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  /************************************************** */
+  
+  /************************************************** */
   const handleFormData = (e: ILoginUser | any) => {
     setFormData({
       ...formData,
@@ -33,7 +39,9 @@ export const Login = (): JSX.Element => {
       remember_me: e.target.checked,
     });
   };
-  const navigate = useNavigate();
+  /************************************************** */
+  
+  /************************************************** */
   const submitFormData = async (e: any) => {
     e.preventDefault();
     //check if user filled out all fields
@@ -59,11 +67,14 @@ export const Login = (): JSX.Element => {
       setIsLoading(false);
     }
   };
+  /************************************************** */
 
   const colorMode = useColorModeValue("white", "gray.700");
   if (isLoading) {
     return <Loading />;
   }
+
+  /************************************ */
   return (
     <Box display={"flex"} mx='auto'>
       <Flex minH={"100vh"} align={"center"} justify={"center"}>
