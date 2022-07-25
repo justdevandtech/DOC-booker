@@ -6,6 +6,7 @@ interface IPublicRoutedProps {
   children: React.ReactNode;
 }
 
+//if the user is not logged in, redirect to login page
 export const PublicRoute = ({ children }: IPublicRoutedProps) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");

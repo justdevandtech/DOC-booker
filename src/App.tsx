@@ -5,7 +5,7 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Layout } from './components/Layout';
 import { Toaster } from 'react-hot-toast';
-import { ProtectedRouted } from './components/ProtectedRouted';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { PublicRoute } from './components/PublicRoute';
 import { Loading } from './components/Loading';
 import { useEffect, useState } from "react";
@@ -37,9 +37,9 @@ function App() {
           <Route
             path='*'
             element={
-              <ProtectedRouted>
+              <ProtectedRoute>
                 <Layout />
-              </ProtectedRouted>
+              </ProtectedRoute>
             }
           />
           <Route

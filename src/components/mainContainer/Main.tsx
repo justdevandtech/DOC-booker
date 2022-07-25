@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Profile } from "../../pages/Profile";
 import { Doctors } from "../../pages/Doctors";
 import { Users } from "../../pages/Users";
-import { ProtectedRouted } from "../ProtectedRouted";
+import { ProtectedRoute } from "../ProtectedRoute";
 
 export const Main = () => {
   const dispatch = useAppDispatch();
@@ -47,33 +47,33 @@ export const Main = () => {
           <Route
             path='/apply'
             element={
-              <ProtectedRouted>
+              <ProtectedRoute>
                 <Apply />
-              </ProtectedRouted>
+              </ProtectedRoute>
             }
           />
           <Route
             path='/profile'
             element={
-              <ProtectedRouted>
+              <ProtectedRoute>
                 <Profile />
-              </ProtectedRouted>
+              </ProtectedRoute>
             }
           />
           <Route
             path='/doctors'
             element={
-              <ProtectedRouted>
+              <ProtectedRoute>
                 <Doctors />
-              </ProtectedRouted>
+              </ProtectedRoute>
             }
           />
           <Route
             path='/users'
             element={
-              <ProtectedRouted>
+              <ProtectedRoute>
                 <Users />
-              </ProtectedRouted>
+              </ProtectedRoute>
             }
           />
         </Routes>
