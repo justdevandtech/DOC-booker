@@ -11,6 +11,7 @@ import { Profile } from "../../pages/Profile";
 import { Doctors } from "../../pages/Doctors";
 import { Users } from "../../pages/Users";
 import { ProtectedRoute } from "../ProtectedRoute";
+import { Notifacations } from "../../pages/Notifacations";
 
 export const Main = () => {
   const dispatch = useAppDispatch();
@@ -76,6 +77,9 @@ export const Main = () => {
               </ProtectedRoute>
             }
           />
+          <Route path='/notifications' element={<ProtectedRoute>
+            <Notifacations />
+          </ProtectedRoute>} />
         </Routes>
       </Container>
     </Box>

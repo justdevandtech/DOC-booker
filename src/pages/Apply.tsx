@@ -10,6 +10,7 @@ export const Apply = ():JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { user } = useAppSelector(state => state.auth);
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
   /******************************************************** */
   const [applyFormData, setApplyFormData] = useState({
@@ -58,7 +59,9 @@ export const Apply = ():JSX.Element => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.post("/api/doctor/apply", applyFormData);
+      const response = await axios.post("/api/doctor/apply", applyFormData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (response.data.success) {
         setIsLoading(false);
         toast.success("Application submitted successfully");

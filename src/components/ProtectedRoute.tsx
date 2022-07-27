@@ -92,7 +92,7 @@ export const ProtectedRoute = ({
       });
     /********************************************************************* */
   }, [token, navigate, user, getUser, dispatch, adminMenuItems, location]);
-  /******************************************************* */
+  /******************************************************* *********/
 
   if (isLoading) {
     return <Loading />;
