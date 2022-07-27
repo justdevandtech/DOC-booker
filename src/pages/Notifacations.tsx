@@ -7,10 +7,12 @@ import {
   Box,
   Heading,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../app/hooks";
 
 export const Notifacations = () => {
   const { user } = useAppSelector(state => state.auth);
+  const navigate = useNavigate();
   return (
     <Box mt={3}>
       <Heading as='h1' size='lg'>
@@ -37,6 +39,7 @@ export const Notifacations = () => {
                       w={"100%"}
                       cursor='pointer'
                       key={notification.id}
+                      onClick={() => navigate(notification.onclickPath)}
                     >
                       {notification.message}{" "}
                     </Box>
@@ -47,7 +50,30 @@ export const Notifacations = () => {
               <Box>No unseen notification</Box>
             )}
           </TabPanel>
-          <TabPanel>Seen Notifications</TabPanel>
+          <TabPanel>
+            {user?.seenNotification.length > 0 ? (
+              <Box>
+                {user?.seenNotification.map(
+                  (notification: any, index: number) => (
+                    <Box
+                      bg={"white"}
+                      border='1px'
+                      borderColor={"#eaeaea"}
+                      p={3}
+                      rounded={"sm"}
+                      w={"100%"}
+                      cursor='pointer'
+                      key={notification.id}
+                    >
+                      {notification.message}{" "}
+                    </Box>
+                  )
+                )}
+              </Box>
+            ) : (
+              <Box>No notification</Box>
+            )}
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </Box>

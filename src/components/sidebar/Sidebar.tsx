@@ -81,7 +81,7 @@ export const Sidebar = () => {
     },
     {
       name: "Profile",
-      path: "/profile",
+      path: "/user-profile",
       icon: <FaUserCog />,
     },
   ];

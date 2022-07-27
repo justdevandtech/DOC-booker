@@ -18,5 +18,7 @@ export interface IuserProps {
   email: string;
   isAdmin: boolean;
   userId: string | null;
-  unseenNotification: any
+  unseenNotification: any,
+  seenNotification: any,
 }
+

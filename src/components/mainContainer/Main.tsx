@@ -7,11 +7,11 @@ import { Apply } from "../../pages/Apply";
 import { BiCollapse } from "react-icons/bi";
 import { toggle } from "../../features/common/indexSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { Profile } from "../../pages/Profile";
 import { Doctors } from "../../pages/Doctors";
 import { Users } from "../../pages/Users";
 import { ProtectedRoute } from "../ProtectedRoute";
 import { Notifacations } from "../../pages/Notifacations";
+import { UserProfile } from '../../pages/UserProfile';
 
 export const Main = () => {
   const dispatch = useAppDispatch();
@@ -54,14 +54,6 @@ export const Main = () => {
             }
           />
           <Route
-            path='/profile'
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path='/doctors'
             element={
               <ProtectedRoute>
@@ -77,11 +69,20 @@ export const Main = () => {
               </ProtectedRoute>
             }
           />
-          <Route path='/notifications' element={<ProtectedRoute>
-            <Notifacations />
+          <Route
+            path='/notifications'
+            element={
+              <ProtectedRoute>
+                <Notifacations />
+              </ProtectedRoute>
+            }
+          />
+          <Route path='/user-profile' element={<ProtectedRoute>
+            <UserProfile />
           </ProtectedRoute>} />
         </Routes>
       </Container>
     </Box>
+    
   );
 };

@@ -1,7 +1,92 @@
-import React from 'react'
+import {
+  Table,
+  Thead,
+  Tbody,
+  Heading,
+  Center,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  Select,
+} from "@chakra-ui/react";
+// import { useAppDispatch, useAppSelector } from '../app/hooks'
+// import { useNavigate } from 'react-router-dom'
+import axios from "axios";
+import { Box } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Loading } from "../components/Loading";
 
 export const Users = () => {
+  const [users, setUsers] = useState<any>([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get("/api/auth/get-all-users", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      if (data.success) {
+        setUsers(data);
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  let dd = users?.data?.map((user: any) => {
+    return user
+  })
+  console.log(dd);
+
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
-    <div>Users</div>
-  )
-}
+    <Box mt={4}>
+      <Center>
+        <Heading as='h1' size='lg'>
+          Users Data
+        </Heading>
+      </Center>
+      <TableContainer>
+        <Table variant='simple'>
+          <TableCaption>All user data</TableCaption>
+          <Thead>
+            <Tr>
+              <Th>Name</Th>
+              <Th>Email</Th>
+              <Th>Date</Th>
+              <Th>Status</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {users?.data?.length > 0 &&
+              users?.data?.map((user: any) => (
+                <Tr key={user._id}>
+                  <Td>
+                    {user.first_name} {user.last_name}
+                  </Td>
+                  <Td>{user.email}</Td>
+                  <Td>{user.createdAt}</Td>
+                  <Td>
+                    <Select rounded={"md"} size={"sm"} placeholder='Pending'>
+                      <option value='approved'>Approved</option>
+                    </Select>
+                  </Td>
+                </Tr>
+              ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </Box>
+  );
+};
