@@ -54,7 +54,7 @@ export const Main = () => {
             }
           />
           <Route
-            path='/doctors'
+            path='/admin/doctors'
             element={
               <ProtectedRoute>
                 <Doctors />
@@ -62,7 +62,7 @@ export const Main = () => {
             }
           />
           <Route
-            path='/users'
+            path='/admin/users'
             element={
               <ProtectedRoute>
                 <Users />

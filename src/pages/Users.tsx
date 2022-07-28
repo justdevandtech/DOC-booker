@@ -9,7 +9,6 @@ import {
   Td,
   TableCaption,
   TableContainer,
-  Select,
 } from "@chakra-ui/react";
 // import { useAppDispatch, useAppSelector } from '../app/hooks'
 // import { useNavigate } from 'react-router-dom'
@@ -17,6 +16,7 @@ import axios from "axios";
 import { Box } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Loading } from "../components/Loading";
+import { UserActionMenu } from '../components/UserActionMenu';
 
 export const Users = () => {
   const [users, setUsers] = useState<any>([]);
@@ -42,10 +42,9 @@ export const Users = () => {
   }, []);
 
   let dd = users?.data?.map((user: any) => {
-    return user
-  })
+    return user;
+  });
   console.log(dd);
-
 
   if (loading) {
     return <Loading />;
@@ -59,13 +58,14 @@ export const Users = () => {
       </Center>
       <TableContainer>
         <Table variant='simple'>
-          <TableCaption>All user data</TableCaption>
+          <TableCaption>All user's data</TableCaption>
           <Thead>
             <Tr>
               <Th>Name</Th>
               <Th>Email</Th>
               <Th>Date</Th>
-              <Th>Status</Th>
+              <Th>Role</Th>
+              <Th>Action</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -77,10 +77,11 @@ export const Users = () => {
                   </Td>
                   <Td>{user.email}</Td>
                   <Td>{user.createdAt}</Td>
+                  <Td>{user.isAdmin ? "Admin" : "User"}</Td>
                   <Td>
-                    <Select rounded={"md"} size={"sm"} placeholder='Pending'>
-                      <option value='approved'>Approved</option>
-                    </Select>
+                    {!user.isAdmin && (
+                        <UserActionMenu />
+                    )}
                   </Td>
                 </Tr>
               ))}

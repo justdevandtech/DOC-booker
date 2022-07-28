@@ -8,15 +8,18 @@ import { FaUserCog } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
 import { GiDoctorFace } from "react-icons/gi";
 import { useLocation } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { Link } from "react-router-dom";
 import { ImenuItems } from "../../interfaces/menuItems";
+import { ConfirmLogout } from '../modals/ConfirmLogout';
+import { userIsLogout } from "../../features/modal/modalSlice";
 
 export const Sidebar = () => {
   const location = useLocation();
 
   const { sideBarIsToggled } = useAppSelector(state => state.index);
   const { user } = useAppSelector(state => state.auth);
+  const dispatch = useAppDispatch()
 
   const styles: React.CSSProperties | undefined = {
     height: "95vh",
@@ -71,12 +74,12 @@ export const Sidebar = () => {
     },
     {
       name: "Users",
-      path: "/users",
+      path: "/admin/users",
       icon: <FaUsers />,
     },
     {
       name: "Doctors",
-      path: "/doctors",
+      path: "/admin/doctors",
       icon: <GiDoctorFace />,
     },
     {
@@ -87,8 +90,7 @@ export const Sidebar = () => {
   ];
 
   const logoutUser = () => {
-    localStorage.removeItem("token");
-    window.location.reload();
+    dispatch(userIsLogout());
   };
 
   //menu items to display based on user type
@@ -161,6 +163,7 @@ export const Sidebar = () => {
       >
         <HiOutlineLogout /> {!sideBarIsToggled && <Text ml={3}>Logout</Text>}
       </Button>
+      <ConfirmLogout />
     </Box>
   );
 };
