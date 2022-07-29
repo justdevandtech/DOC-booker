@@ -10,14 +10,13 @@ import {
   TableCaption,
   TableContainer,
   Button,
-  Text
+  Text,
 } from "@chakra-ui/react";
-// import { useAppDispatch, useAppSelector } from '../app/hooks'
-// import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { Box } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { Loading } from "../components/Loading";
+import { toast } from 'react-hot-toast';
 
 export const Doctors = () => {
   const [doctors, setDoctors] = useState<any>([]);
@@ -37,15 +36,36 @@ export const Doctors = () => {
       setLoading(false);
     }
   };
+  console.log(doctors.data);
+  const changeDoctorStatus = useCallback(
+    async (doctorId: string, status: string) => {
+      try {
+        setLoading(true);
+        const { data } = await axios.put(
+          "/api/doctor/change-doctor-status",
+          { doctorId, status },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        if (data.success) {
+          toast.success(data.message);
+          fetchDoctors();
+        }
+        setLoading(false);
+      } catch (error:any) {
+        setLoading(false);
+        toast.error(error.response.data.message);
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     fetchDoctors();
   }, []);
-
-  let dd = doctors?.data?.map((doctor: any) => {
-    return doctor;
-  });
-  console.log(dd);
 
   if (loading) {
     return <Loading />;
@@ -72,7 +92,16 @@ export const Doctors = () => {
           <Tbody>
             {doctors?.data?.length > 0 &&
               doctors?.data?.map((doctor: any, index: number) => {
-                const { _id, first_name, last_name, email, createdAt, status } = doctor;
+                const {
+                  _id,
+                  first_name,
+                  last_name,
+                  email,
+                  createdAt,
+                  status,
+                  userId,
+                } = doctor;
+                console.log(userId);
                 return (
                   <Tr key={_id}>
                     <Td display={"flex"} alignItems='center'>
@@ -86,12 +115,22 @@ export const Doctors = () => {
                       </Text>
                       {first_name} {last_name}
                     </Td>
-                    <Td>{email}</Td>
+                    <Td>{email}- {userId}</Td>
                     <Td>{createdAt}</Td>
                     <Td>{status}</Td>
                     <Td>
                       {status === "pending" && (
-                        <Button size={"sm"} bg='#3182CE' color='white'>
+                        <Button
+                          size={"sm"}
+                          bg='#3182CE'
+                          color='white'
+                          onClick={() =>
+                            changeDoctorStatus(
+                              _id,
+                              "approved"
+                            )
+                          }
+                        >
                           Approve
                         </Button>
                       )}

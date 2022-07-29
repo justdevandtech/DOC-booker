@@ -6,13 +6,13 @@ import {
   TabPanel,
   Box,
   Heading,
+  Text,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../app/hooks";
+import { IoMdCloseCircle } from "react-icons/io";
 
 export const Notifacations = () => {
   const { user } = useAppSelector(state => state.auth);
-  const navigate = useNavigate();
   return (
     <Box mt={3}>
       <Heading as='h1' size='lg'>
@@ -35,13 +35,18 @@ export const Notifacations = () => {
                       border='1px'
                       borderColor={"#eaeaea"}
                       p={3}
-                      rounded={"sm"}
+                      rounded={"md"}
                       w={"100%"}
-                      cursor='pointer'
-                      key={notification.id}
-                      onClick={() => navigate(notification.onclickPath)}
+                      display={"flex"}
+                      alignItems='center'
+                      justifyContent='space-between'
+                      mt={2}
+                      key={index}
                     >
-                      {notification.message}{" "}
+                      <Text cursor='pointer'>{notification.message}</Text>
+                      <Box cursor='pointer'>
+                        <IoMdCloseCircle color='red' />
+                      </Box>
                     </Box>
                   )
                 )}

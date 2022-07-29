@@ -3,6 +3,8 @@ import { useAppSelector } from '../app/hooks'
 
 export const UserProfile = () => {
     const { user } = useAppSelector(state => state.auth)
+    console.log(user);
+    
   return (
     <Container mt={3} maxW='container.xl'>
       <Flex>
