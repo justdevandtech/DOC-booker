@@ -17,8 +17,9 @@ import { Box } from "@chakra-ui/react";
 import { useEffect, useCallback, useState } from "react";
 import { Loading } from "../components/Loading";
 import { toast } from 'react-hot-toast';
+import  moment  from 'moment';
 
-export const Doctors = () => {
+export const DoctorList = () => {
   const [doctors, setDoctors] = useState<any>([]);
   const [loading, setLoading] = useState(false);
 
@@ -115,8 +116,10 @@ export const Doctors = () => {
                       </Text>
                       {first_name} {last_name}
                     </Td>
-                    <Td>{email}- {userId}</Td>
-                    <Td>{createdAt}</Td>
+                    <Td>{email}</Td>
+                    <Td fontSize={"12px"}>
+                      {moment(createdAt).format("MMMM Do YYYY, h:mm a")}
+                    </Td>
                     <Td>{status}</Td>
                     <Td>
                       {status === "pending" && (
@@ -124,12 +127,7 @@ export const Doctors = () => {
                           size={"sm"}
                           bg='#3182CE'
                           color='white'
-                          onClick={() =>
-                            changeDoctorStatus(
-                              _id,
-                              "approved"
-                            )
-                          }
+                          onClick={() => changeDoctorStatus(_id, "approved")}
                         >
                           Approve
                         </Button>

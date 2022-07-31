@@ -57,11 +57,11 @@ export const ProtectedRoute = ({
     () => [
       {
         name: "Users",
-        path: "/users",
+        path: "users",
       },
       {
         name: "Doctors",
-        path: "/doctors",
+        path: "doctors",
       },
     ],
     []
@@ -79,8 +79,7 @@ export const ProtectedRoute = ({
 
     /********************************************************************* */
     //user should only be able to access admin routes if they are an admin
-    const user_props = JSON.parse(localStorage.getItem("userPros") || "{}");
-    !user_props.isAdmin &&
+    !user?.isAdmin &&
       adminMenuItems.map(route => {
         if (location.pathname.includes(route.path)) {
           toast.error("You do not have permission to access this page");

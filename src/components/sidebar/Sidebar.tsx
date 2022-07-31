@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Center, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Heading, Text} from "@chakra-ui/react";
 import { GrHomeOption } from "react-icons/gr";
 import { BiTask } from "react-icons/bi";
 import { IoIosAddCircle } from "react-icons/io";
@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 import { ImenuItems } from "../../interfaces/menuItems";
 import { ConfirmLogout } from '../modals/ConfirmLogout';
 import { userIsLogout } from "../../features/modal/modalSlice";
+import { setToggle } from "../../features/common/indexSlice";
+
 
 export const Sidebar = () => {
   const location = useLocation();
@@ -89,14 +91,41 @@ export const Sidebar = () => {
     },
   ];
 
+  const doctorMenuItems = [
+    {
+      name: "Home",
+      path: "/",
+      icon: <GrHomeOption />,
+    },
+    {
+      name: "Appointments",
+      path: "/appointments",
+      icon: <BiTask />,
+    },
+    {
+      name: "Profile",
+      path: `/doctor/profile/${user?.userId}`,
+      icon: <FaUserCog />,
+    },
+  ];
+
+
   const logoutUser = () => {
     dispatch(userIsLogout());
   };
 
+  //MEDIA QUERY
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    dispatch(setToggle(true));
+  }
+  // const isTablet = window.innerWidth < 1024;
+  // const isDesktop = window.innerWidth > 1024;
+
   //menu items to display based on user type
   const menuItemsToBeRender: ImenuItems[] = user?.isAdmin
     ? adminMenuItems
-    : usersMenuItems;
+    : user?.isDoctor ? doctorMenuItems : usersMenuItems;
 
   return (
     <Box rounded={"md"} style={styles}>

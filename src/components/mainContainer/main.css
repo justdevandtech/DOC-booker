@@ -1,0 +1,9 @@
+.main-container {
+    width: calc(100% - 200px) !important;
+    margin-left: 200px !important;
+}
+
+.sidebar-toggled {
+    width: calc(100% - 70px) !important;
+    margin-left: 70px !important;
+}

@@ -17,8 +17,9 @@ import { Box } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Loading } from "../components/Loading";
 import { UserActionMenu } from '../components/UserActionMenu';
+import moment from "moment";
 
-export const Users = () => {
+export const UserList = () => {
   const [users, setUsers] = useState<any>([]);
   const [loading, setLoading] = useState(false);
 
@@ -76,13 +77,12 @@ export const Users = () => {
                     {user.first_name} {user.last_name}
                   </Td>
                   <Td>{user.email}</Td>
-                  <Td>{user.createdAt}</Td>
-                  <Td>{user.isAdmin ? "Admin" : "User"}</Td>
-                  <Td>
-                    {!user.isAdmin && (
-                        <UserActionMenu />
-                    )}
+                  <Td fontSize={'12px'}>
+                    {moment(user.createdAt).format("MMMM Do YYYY, h:mm a")}
+                      
                   </Td>
+                  <Td>{user.isAdmin ? "Admin" : "User"}</Td>
+                  <Td>{!user.isAdmin && <UserActionMenu />}</Td>
                 </Tr>
               ))}
           </Tbody>

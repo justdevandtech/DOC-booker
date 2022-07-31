@@ -7,11 +7,12 @@ import { Apply } from "../../pages/Apply";
 import { BiCollapse } from "react-icons/bi";
 import { toggle } from "../../features/common/indexSlice";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { Doctors } from "../../pages/Doctors";
-import { Users } from "../../pages/Users";
+import { DoctorList } from "../../pages/DoctorList";
+import { UserList } from "../../pages/UserList";
 import { ProtectedRoute } from "../ProtectedRoute";
 import { Notifacations } from "../../pages/Notifacations";
 import { UserProfile } from '../../pages/UserProfile';
+import { DoctorProfile } from "../../pages/DoctorProfile";
 
 export const Main = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +28,7 @@ export const Main = () => {
     marginTop: "10px",
   };
   return (
-    <Box style={styles}>
+    <Box w={{base: '0px', md:'100%', sm:'100%'}} style={styles}>
       <Container maxW={"container.xl"}>
         <Box display={"flex"} alignItems='center'>
           <Box
@@ -57,7 +58,7 @@ export const Main = () => {
             path='/admin/doctors'
             element={
               <ProtectedRoute>
-                <Doctors />
+                <DoctorList />
               </ProtectedRoute>
             }
           />
@@ -65,7 +66,7 @@ export const Main = () => {
             path='/admin/users'
             element={
               <ProtectedRoute>
-                <Users />
+                <UserList />
               </ProtectedRoute>
             }
           />
@@ -77,12 +78,24 @@ export const Main = () => {
               </ProtectedRoute>
             }
           />
-          <Route path='/user-profile' element={<ProtectedRoute>
-            <UserProfile />
-          </ProtectedRoute>} />
+          <Route
+            path='/user-profile'
+            element={
+              <ProtectedRoute>
+                <UserProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='/doctor/profile/:doctorId'
+            element={
+              <ProtectedRoute>
+                <DoctorProfile />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Container>
     </Box>
-    
   );
 };

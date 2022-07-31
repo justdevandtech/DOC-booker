@@ -1,30 +1,42 @@
 import {
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   Box,
   Heading,
   Text,
 } from "@chakra-ui/react";
 import { useAppSelector } from "../app/hooks";
 import { IoMdCloseCircle } from "react-icons/io";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export const Notifacations = () => {
   const { user } = useAppSelector(state => state.auth);
+
+  const deleteUserNotification = async (id: string): Promise<void> => {
+    try {
+      const { data } = await axios.delete(
+        `/api/auth/delete-unseen-notification/${id}`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      if (data.success) {
+        toast.success("Notification deleted successfully");
+        window.location.reload();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+  
   return (
     <Box mt={3}>
       <Heading as='h1' size='lg'>
         Notifications
       </Heading>
-      <Tabs mt={3} size='md' variant='enclosed'>
-        <TabList>
-          <Tab>Unseen</Tab>
-          <Tab>Seen</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
+      <hr />
+          <Box>
             {/* user notification not less than one and map */}
             {user?.unseenNotification.length > 0 ? (
               <Box>
@@ -44,7 +56,10 @@ export const Notifacations = () => {
                       key={index}
                     >
                       <Text cursor='pointer'>{notification.message}</Text>
-                      <Box cursor='pointer'>
+                      <Box
+                        cursor='pointer'
+                        onClick={() => deleteUserNotification(notification.id)}
+                      >
                         <IoMdCloseCircle color='red' />
                       </Box>
                     </Box>
@@ -52,35 +67,9 @@ export const Notifacations = () => {
                 )}
               </Box>
             ) : (
-              <Box>No unseen notification</Box>
-            )}
-          </TabPanel>
-          <TabPanel>
-            {user?.seenNotification.length > 0 ? (
-              <Box>
-                {user?.seenNotification.map(
-                  (notification: any, index: number) => (
-                    <Box
-                      bg={"white"}
-                      border='1px'
-                      borderColor={"#eaeaea"}
-                      p={3}
-                      rounded={"sm"}
-                      w={"100%"}
-                      cursor='pointer'
-                      key={notification.id}
-                    >
-                      {notification.message}{" "}
-                    </Box>
-                  )
-                )}
-              </Box>
-            ) : (
               <Box>No notification</Box>
             )}
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+          </Box>
     </Box>
   );
 };
