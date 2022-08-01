@@ -4,7 +4,7 @@ import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { setUser } from "../features/auth/authSlice";
 import { Loading } from "./Loading";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 
 interface IProtectedRoutedProps {
   children: React.ReactNode;

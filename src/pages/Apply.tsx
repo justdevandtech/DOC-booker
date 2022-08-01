@@ -1,12 +1,19 @@
-import { Box, FormControl, FormLabel, Input, SimpleGrid, Button } from "@chakra-ui/react";
-import { useState } from 'react';
-import axios  from 'axios';
-import toast from 'react-hot-toast';
-import { Loading } from '../components/Loading';
-import { useAppSelector } from '../app/hooks';
-import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  SimpleGrid,
+  Button,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { Loading } from "../components/Loading";
+import { useAppSelector } from "../app/hooks";
+import { useNavigate } from "react-router-dom";
 
-export const Apply = ():JSX.Element => {
+export const Apply = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { user } = useAppSelector(state => state.auth);
   const navigate = useNavigate();
@@ -206,4 +213,4 @@ export const Apply = ():JSX.Element => {
       </form>
     </Box>
   );
-}
+};

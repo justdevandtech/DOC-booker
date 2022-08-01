@@ -1,8 +1,4 @@
-import {
-  Box,
-  Heading,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Heading, Text } from "@chakra-ui/react";
 import { useAppSelector } from "../app/hooks";
 import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
@@ -29,47 +25,47 @@ export const Notifacations = () => {
       toast.error(error.message);
     }
   };
-  
+
   return (
     <Box mt={3}>
       <Heading as='h1' size='lg'>
         Notifications
       </Heading>
       <hr />
+      <Box>
+        {/* user notification not less than one and map */}
+        {user?.unseenNotification.length > 0 ? (
           <Box>
-            {/* user notification not less than one and map */}
-            {user?.unseenNotification.length > 0 ? (
-              <Box>
-                {user?.unseenNotification.map(
-                  (notification: any, index: number) => (
-                    <Box
-                      bg={"white"}
-                      border='1px'
-                      borderColor={"#eaeaea"}
-                      p={3}
-                      rounded={"md"}
-                      w={"100%"}
-                      display={"flex"}
-                      alignItems='center'
-                      justifyContent='space-between'
-                      mt={2}
-                      key={index}
-                    >
-                      <Text cursor='pointer'>{notification.message}</Text>
-                      <Box
-                        cursor='pointer'
-                        onClick={() => deleteUserNotification(notification.id)}
-                      >
-                        <IoMdCloseCircle color='red' />
-                      </Box>
-                    </Box>
-                  )
-                )}
-              </Box>
-            ) : (
-              <Box>No notification</Box>
+            {user?.unseenNotification.map(
+              (notification: any, index: number) => (
+                <Box
+                  bg={"white"}
+                  border='1px'
+                  borderColor={"#eaeaea"}
+                  p={3}
+                  rounded={"md"}
+                  w={"100%"}
+                  display={"flex"}
+                  alignItems='center'
+                  justifyContent='space-between'
+                  mt={2}
+                  key={index}
+                >
+                  <Text cursor='pointer'>{notification.message}</Text>
+                  <Box
+                    cursor='pointer'
+                    onClick={() => deleteUserNotification(notification.id)}
+                  >
+                    <IoMdCloseCircle color='red' />
+                  </Box>
+                </Box>
+              )
             )}
           </Box>
+        ) : (
+          <Box>No notification</Box>
+        )}
+      </Box>
     </Box>
   );
 };
