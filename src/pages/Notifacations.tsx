@@ -3,6 +3,7 @@ import { useAppSelector } from "../app/hooks";
 import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Link } from 'react-router-dom';
 
 export const Notifacations = () => {
   const { user } = useAppSelector(state => state.auth);
@@ -51,12 +52,14 @@ export const Notifacations = () => {
                   mt={2}
                   key={index}
                 >
-                  <Text cursor='pointer'>{notification.message}</Text>
+                  <Link to={`/admin/doctors`}>
+                    <Text cursor='pointer'>{notification.message}</Text>
+                  </Link>
                   <Box
                     cursor='pointer'
                     onClick={() => deleteUserNotification(notification.id)}
                   >
-                    <IoMdCloseCircle color='red' />
+                    <IoMdCloseCircle size={'20px'} color='red' />
                   </Box>
                 </Box>
               )

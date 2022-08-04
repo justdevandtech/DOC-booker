@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Button, Center, Heading, Text} from "@chakra-ui/react";
 import { GrHomeOption } from "react-icons/gr";
 import { BiTask } from "react-icons/bi";
@@ -23,28 +22,6 @@ export const Sidebar = () => {
   const { user } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch()
 
-  const styles: React.CSSProperties | undefined = {
-    height: "95vh",
-    width: sideBarIsToggled ? "70px" : "200px",
-    position: "fixed",
-    top: "10px",
-    left: "10px",
-    bottom: "10px",
-    backgroundColor: "white",
-    border: "1px solid #eaeaea",
-    zIndex: "1",
-    padding: "10px",
-    overflowY: "auto",
-    overflowX: "hidden",
-    WebkitOverflowScrolling: "touch",
-    transition: "0.3s ease-in-out",
-    willChange: "left, top, width",
-    transform: "translate3d(0px, 0px, 0px)",
-    transitionProperty: "left, top, width",
-    transitionDuration: "0.3s",
-    transitionTimingFunction: "ease-in-out",
-    transitionDelay: "0s",
-  };
   const usersMenuItems = [
     {
       name: "Home",
@@ -114,21 +91,44 @@ export const Sidebar = () => {
     dispatch(userIsLogout());
   };
 
-  //MEDIA QUERY
-  const isMobile = window.innerWidth <= 768;
-  if (isMobile) {
-    dispatch(setToggle(true));
-  }
-  // const isTablet = window.innerWidth < 1024;
-  // const isDesktop = window.innerWidth > 1024;
+  // //MEDIA QUERY
+  // const isMobile = window.innerWidth <= 768;
+  // const isSmall = window.innerWidth <= 576;
+  // const isMedium = window.innerWidth <= 768;
+  // const isLarge = window.innerWidth <= 992;
+  // const isXLarge = window.innerWidth <= 1200;
 
   //menu items to display based on user type
   const menuItemsToBeRender: ImenuItems[] = user?.isAdmin
     ? adminMenuItems
     : user?.isDoctor ? doctorMenuItems : usersMenuItems;
 
+     const styles: React.CSSProperties | undefined = {
+       height: "95vh",
+       width: sideBarIsToggled ? "70px" : "200px",
+       position: "fixed",
+       top: "10px",
+       left: "10px",
+       bottom: "10px",
+       backgroundColor: "white",
+       border: "1px solid #eaeaea",
+       zIndex: "1",
+       padding: "10px",
+       overflowY: "auto",
+       overflowX: "hidden",
+       WebkitOverflowScrolling: "touch",
+       transition: "0.3s ease-in-out",
+       willChange: "left, top, width",
+       transform: "translate3d(0px, 0px, 0px)",
+       transitionProperty: "left, top, width",
+       transitionDuration: "0.3s",
+       transitionTimingFunction: "ease-in-out",
+       transitionDelay: "0s",
+     };
+
+     
   return (
-    <Box rounded={"md"} style={styles}>
+    <Box className="" rounded={"md"} style={styles}>
       {!sideBarIsToggled ? (
         <Heading mt={3} color={"#1d3557"} fontSize={"25px"} as='h1'>
           <Center>

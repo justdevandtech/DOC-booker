@@ -1,13 +1,11 @@
 import { Box } from "@chakra-ui/react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Loading } from "../components/Loading";
 
 export const DoctorProfile = () => {
   const [loading, setLoading] = useState(false);
   const [doctor, setDoctor] = useState(null);
-  const getPrams = useParams();
-  console.log(doctor);
 
   //fetch doctor profile
   const fetchDoctorProfile = async () => {
@@ -18,12 +16,18 @@ export const DoctorProfile = () => {
       });
       setDoctor(data.data);
       setLoading(false);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     fetchDoctorProfile();
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return <Box>DoctorProfile</Box>;
 };
