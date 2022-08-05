@@ -5,7 +5,6 @@ import {
   Text,
   Stack,
   Button,
-  Link,
   useColorModeValue,
   SimpleGrid,
   Center,
@@ -15,10 +14,6 @@ import { useAppDispatch } from '../app/hooks';
 
 export const DoctorCard = ({ doctors }: any) => {
   const bgColor = useColorModeValue("white", "gray.900");
-  //   const bgColor2 = useColorModeValue("gray.50", "gray.800");
-  //   const bgColor3 = useColorModeValue("gray.50", "gray.800");
-  //   const bgColor4 = useColorModeValue("gray.50", "gray.800");
-  const Color1 = useColorModeValue("gray.700", "gray.400");
   const dispatch = useAppDispatch()
 
   const displayDoctors = doctors.map((doctor: any) => {

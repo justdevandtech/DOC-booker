@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { ImenuItems } from "../../interfaces/menuItems";
 import { ConfirmLogout } from '../modals/ConfirmLogout';
 import { userIsLogout } from "../../features/modal/modalSlice";
-import { setToggle } from "../../features/common/indexSlice";
+// import { setToggle } from "../../features/common/indexSlice";
 
 
 export const Sidebar = () => {

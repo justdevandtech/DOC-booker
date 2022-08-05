@@ -146,7 +146,7 @@ export const DoctorList = () => {
                     </Td>
                     <Td>{status}</Td>
                     <Td>
-                      {status === "pending" || status === "blocked" && (
+                      {status === "pending" || status === "blocked" ? (
                         <Button
                           size={"sm"}
                           bg='#3182CE'
@@ -155,7 +155,7 @@ export const DoctorList = () => {
                         >
                           Approve
                         </Button>
-                      )}
+                      ): null}
                       {status === "approved" && (
                         <Button size={"sm"} bg='red' color='white' onClick={() => blockDoctor(_id)}>
                           Block

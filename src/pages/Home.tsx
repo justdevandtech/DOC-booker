@@ -1,6 +1,5 @@
 import { Box } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Loading } from "../components/Loading";
 import { DoctorCard } from "../components/DoctorCard";
 import { doctorClient } from "../api";
