@@ -12,12 +12,13 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { useState } from "react";
 import { ILoginUser } from "../interfaces/index";
 import toast from "react-hot-toast";
 import { Loading } from "../components/Loading";
 import { useNavigate } from "react-router-dom";
+import { appRespondClient } from '../api/index';
+
 
 export const Login = (): JSX.Element => {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ export const Login = (): JSX.Element => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post("/api/auth/login", formData);
+      const response = await appRespondClient.post("/api/auth/login", formData);
       if (response.data.success) {
         setIsLoading(false);
         toast.success(response.data.message);

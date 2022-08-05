@@ -7,11 +7,11 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { Loading } from "../components/Loading";
 import { useAppSelector } from "../app/hooks";
 import { useNavigate } from "react-router-dom";
+import { appRespondClient } from '../api/index';
 
 export const EditDoctorDetails = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -67,9 +67,13 @@ export const EditDoctorDetails = () => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await axios.post("/api/doctor/apply", applyFormData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await appRespondClient.post(
+        "/api/doctor/apply",
+        applyFormData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       if (response.data.success) {
         setIsLoading(false);
         toast.success("Application submitted successfully");

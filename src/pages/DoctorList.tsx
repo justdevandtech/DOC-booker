@@ -12,12 +12,12 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { Box } from "@chakra-ui/react";
 import { useEffect, useCallback, useState } from "react";
 import { Loading } from "../components/Loading";
 import { toast } from 'react-hot-toast';
 import  moment  from 'moment';
+import { appRespondClient } from '../api/index';
 
 export const DoctorList = () => {
   const [doctors, setDoctors] = useState<any>([]);
@@ -26,7 +26,7 @@ export const DoctorList = () => {
   const fetchDoctors = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get("/api/doctor/get-all-doctors", {
+      const { data } = await appRespondClient.get("/api/doctor/get-all-doctors", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       if (data.success) {
@@ -40,7 +40,7 @@ export const DoctorList = () => {
   console.log(doctors.data);
   const blockDoctor = async (doctorId: string) => {
     try {
-      const { data } = await axios.put(
+      const { data } = await appRespondClient.put(
         `/api/doctor/block-doctor`,
         { doctorId },
         {
@@ -59,7 +59,7 @@ export const DoctorList = () => {
     async (doctorId: string, status: string) => {
       try {
         setLoading(true);
-        const { data } = await axios.put(
+        const { data } = await appRespondClient.put(
           "/api/doctor/change-doctor-status",
           { doctorId, status },
           {

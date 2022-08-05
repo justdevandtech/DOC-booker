@@ -17,10 +17,10 @@ import {
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { IRegisterUser } from "../interfaces/index";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { Loading } from "../components/Loading";
 import { useNavigate } from "react-router-dom";
+import { appRespondClient } from '../api/index';
 
 export const Register = (): JSX.Element => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -72,7 +72,10 @@ export const Register = (): JSX.Element => {
     //send data to server
     try {
       setIsLoading(true);
-      const response = await axios.post("/api/auth/register", formData);
+      const response = await appRespondClient.post(
+        "/api/auth/register",
+        formData
+      );
       if (response.data.success) {
         setIsLoading(false);
         toast.success(response.data.message);

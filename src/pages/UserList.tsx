@@ -10,14 +10,12 @@ import {
   TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
-// import { useAppDispatch, useAppSelector } from '../app/hooks'
-// import { useNavigate } from 'react-router-dom'
-import axios from "axios";
 import { Box } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Loading } from "../components/Loading";
 import { UserActionMenu } from '../components/UserActionMenu';
 import moment from "moment";
+import { appRespondClient } from '../api/index';
 
 export const UserList = () => {
   const [users, setUsers] = useState<any>([]);
@@ -26,7 +24,7 @@ export const UserList = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get("/api/auth/get-all-users", {
+      const { data } = await appRespondClient.get("/api/auth/get-all-users", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       if (data.success) {

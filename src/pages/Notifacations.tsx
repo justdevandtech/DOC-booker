@@ -1,16 +1,16 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 import { useAppSelector } from "../app/hooks";
 import { IoMdCloseCircle } from "react-icons/io";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { appRespondClient } from '../api/index';
 
 export const Notifacations = () => {
   const { user } = useAppSelector(state => state.auth);
 
   const deleteUserNotification = async (id: string): Promise<void> => {
     try {
-      const { data } = await axios.delete(
+      const { data } = await appRespondClient.delete(
         `/api/auth/delete-unseen-notification/${id}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

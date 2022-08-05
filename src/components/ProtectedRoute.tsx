@@ -1,10 +1,10 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { setUser } from "../features/auth/authSlice";
 import { Loading } from "./Loading";
 import { toast } from "react-hot-toast";
+import { appRespondClient } from '../api/index';
 
 interface IProtectedRoutedProps {
   children: React.ReactNode;
@@ -24,7 +24,7 @@ export const ProtectedRoute = ({
   const getUser = useCallback(async (): Promise<void> => {
     try {
       setIsLoading(true);
-      const response = await axios.post(
+      const response = await appRespondClient.post(
         "/api/auth/get-user-info-by-id",
         {
           token,

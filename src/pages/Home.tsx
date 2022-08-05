@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { Loading } from "../components/Loading";
 import { DoctorCard } from "../components/DoctorCard";
-import { doctorClient } from "../api";
+import { appRespondClient } from "../api";
 import { SendChat } from "../components/modals/chat/SendChat";
 
 export const Home = () => {
@@ -13,9 +13,7 @@ export const Home = () => {
   const fetchDoctors = async () => {
     try {
       setLoading(true);
-      const { data } = await doctorClient.get(
-        "get-all-approved-doctors",
-      );
+      const { data } = await appRespondClient.get("/api/doctor/get-all-approved-doctors");
       if (data.success) {
         setApprovedDoctors(data.data);
       }
