@@ -87,13 +87,10 @@ export const Apply = (): JSX.Element => {
           toTime: "",
         });
         navigate("/");
-      } else {
-        setIsLoading(false);
-        toast.error("Something went wrong");
       }
-    } catch (error) {
+    } catch (error: any) {
       setIsLoading(false);
-      toast.error("Something went wrong");
+      toast.error(error.message);
     }
   };
   /******************************************************** */
@@ -159,7 +156,7 @@ export const Apply = (): JSX.Element => {
           <FormControl id='experience' isRequired>
             <FormLabel>Experience</FormLabel>
             <Input
-              type='text'
+              type='number'
               name='experience'
               value={experience}
               placeholder='6 years'
@@ -179,7 +176,7 @@ export const Apply = (): JSX.Element => {
           <FormControl id='feeCharge' isRequired>
             <FormLabel>Fee Charge</FormLabel>
             <Input
-              type='text'
+              type='number'
               name='feeCharge'
               value={feeCharge}
               placeholder='How much do you charge?'

@@ -13,6 +13,7 @@ import { ProtectedRoute } from "../ProtectedRoute";
 import { Notifacations } from "../../pages/Notifacations";
 import { UserProfile } from '../../pages/UserProfile';
 import { DoctorProfile } from "../../pages/DoctorProfile";
+import { Home } from "../../pages/Home";
 
 export const Main = () => {
   const dispatch = useAppDispatch();
@@ -45,7 +46,16 @@ export const Main = () => {
           <TopNav />
         </Box>
         <Routes>
-          <Route path='/appointments' element={<Appointment />} />
+          <Route path="/" element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          } />
+          <Route path='/appointments' element={
+            <ProtectedRoute>
+              <Appointment />
+            </ProtectedRoute>
+          } />
           <Route
             path='/apply'
             element={
@@ -79,7 +89,7 @@ export const Main = () => {
             }
           />
           <Route
-            path='/user-profile'
+            path='/profile'
             element={
               <ProtectedRoute>
                 <UserProfile />
