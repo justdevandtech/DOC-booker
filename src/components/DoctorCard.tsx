@@ -8,11 +8,10 @@ import {
   Link,
   useColorModeValue,
   SimpleGrid,
+  Center,
 } from "@chakra-ui/react";
-
-// interface IDoctors {
-//   doctors: any;
-// }
+import { openContactDOCModal } from "../features/modal/modalSlice";
+import { useAppDispatch } from '../app/hooks';
 
 export const DoctorCard = ({ doctors }: any) => {
   const bgColor = useColorModeValue("white", "gray.900");
@@ -20,6 +19,7 @@ export const DoctorCard = ({ doctors }: any) => {
   //   const bgColor3 = useColorModeValue("gray.50", "gray.800");
   //   const bgColor4 = useColorModeValue("gray.50", "gray.800");
   const Color1 = useColorModeValue("gray.700", "gray.400");
+  const dispatch = useAppDispatch()
 
   const displayDoctors = doctors.map((doctor: any) => {
     return (
@@ -56,41 +56,16 @@ export const DoctorCard = ({ doctors }: any) => {
         <Text fontWeight={600} color={"gray.500"} mb={4}>
           {doctor.specialization}
         </Text>
-        <Text textAlign={"center"} color={Color1} px={3}>
-          Actress, musician, songwriter and artist. PM for work inquires or{" "}
-          <Link href={"#"} color={"blue.400"}>
-            #tag
-          </Link>{" "}
-          me in your posts
+        <Text>
+          Experience: {doctor.experience} years
         </Text>
-        {/* 
-            <Stack align={"center"} justify={"center"} direction={"row"} mt={6}>
-              <Badge
-                px={2}
-                py={1}
-                bg={bgColor2}
-                fontWeight={"400"}
-              >
-                #art
-              </Badge>
-              <Badge
-                px={2}
-                py={1}
-                bg={bgColor3}
-                fontWeight={"400"}
-              >
-                #photography
-              </Badge>
-              <Badge
-                px={2}
-                py={1}
-                bg={bgColor4}
-                fontWeight={"400"}
-              >
-                #music
-              </Badge>
-            </Stack> */}
-
+        <Text>Address: {doctor.address}</Text>
+        <Text>Email: {doctor.email}</Text>
+        <Text>Tel: {doctor.phone}</Text>
+        <Text mt={3} textTransform='capitalize' rounded={'full'} mx={'auto'} width={'50%'} fontWeight='bold' bg={'green.200'}>{doctor.status}</Text>
+        <Box>
+          ${doctor.feeCharge}
+        </Box>
         <Stack mt={8} direction={"row"} spacing={4}>
           <Button
             flex={1}
@@ -99,6 +74,8 @@ export const DoctorCard = ({ doctors }: any) => {
             _focus={{
               bg: "gray.200",
             }}
+            isDisabled={doctor.status === "blocked"}
+            onClick={() => contactDoctor(doctor._id)}
           >
             Message
           </Button>
@@ -124,9 +101,15 @@ export const DoctorCard = ({ doctors }: any) => {
       </Box>
     );
   });
+const contactDoctor = (doctorId: string) => {
+  dispatch(openContactDOCModal());
+};
 
+if (doctors?.length === 0) {
+  return <Center fontSize={'50px'} fontWeight='bold' mt={5}>No doctors found</Center>;
+}
   return (
-    <SimpleGrid mt={4} columns={[2, null, 3]} spacing='20px'>
+    <SimpleGrid mt={4} columns={[2, null, 4]} spacing='20px'>
       {displayDoctors}
     </SimpleGrid>
   );

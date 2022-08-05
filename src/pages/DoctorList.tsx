@@ -38,6 +38,23 @@ export const DoctorList = () => {
     }
   };
   console.log(doctors.data);
+  const blockDoctor = async (doctorId: string) => {
+    try {
+      const { data } = await axios.put(
+        `/api/doctor/block-doctor`,
+        { doctorId },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+      if (data.success) {
+        toast.success(data.message);
+        fetchDoctors();
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
   const changeDoctorStatus = useCallback(
     async (doctorId: string, status: string) => {
       try {
@@ -70,6 +87,13 @@ export const DoctorList = () => {
 
   if (loading) {
     return <Loading />;
+  }
+  if (doctors.data?.length === 0) {
+    return (
+      <Center fontSize={"50px"} fontWeight='bold' mt={5}>
+        No doctors data found
+      </Center>
+    );
   }
   return (
     <Box mt={4}>
@@ -122,7 +146,7 @@ export const DoctorList = () => {
                     </Td>
                     <Td>{status}</Td>
                     <Td>
-                      {status === "pending" && (
+                      {status === "pending" || status === "blocked" && (
                         <Button
                           size={"sm"}
                           bg='#3182CE'
@@ -133,7 +157,7 @@ export const DoctorList = () => {
                         </Button>
                       )}
                       {status === "approved" && (
-                        <Button size={"sm"} bg='red' color='white'>
+                        <Button size={"sm"} bg='red' color='white' onClick={() => blockDoctor(_id)}>
                           Block
                         </Button>
                       )}

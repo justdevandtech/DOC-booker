@@ -50,6 +50,14 @@ export const UserList = () => {
   if (loading) {
     return <Loading />;
   }
+
+  if (users.data?.length === 0) {
+    return (
+      <Center fontSize={"50px"} fontWeight='bold' mt={5}>
+        No users found
+      </Center>
+    );
+  }
   return (
     <Box mt={4}>
       <Center>

@@ -4,6 +4,7 @@ import axios from "axios";
 import { Loading } from "../components/Loading";
 import { DoctorCard } from "../components/DoctorCard";
 import { doctorClient } from "../api";
+import { SendChat } from "../components/modals/chat/SendChat";
 
 export const Home = () => {
   const [isLoading, setLoading] = useState(true);
@@ -34,6 +35,7 @@ export const Home = () => {
   return (
     <Box>
       <DoctorCard doctors={approvedDoctors} />
+      <SendChat />
     </Box>
   );
 };
