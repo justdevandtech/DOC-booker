@@ -10,10 +10,12 @@ export const Home = () => {
   const [approvedDoctors, setApprovedDoctors] = useState<any>([]);
 
   //home page display all approved doctors only
-  const fetchDoctors = async () => {
+  const fetchDoctors = async (): Promise<void> => {
     try {
       setLoading(true);
-      const { data } = await appRespondClient.get("/api/doctor/get-all-approved-doctors");
+      const { data } = await appRespondClient.get(
+        "/api/doctor/get-all-approved-doctors"
+      );
       if (data.success) {
         setApprovedDoctors(data.data);
       }
@@ -25,6 +27,7 @@ export const Home = () => {
   useEffect(() => {
     fetchDoctors();
   }, []);
+
 
   if (isLoading) {
     return <Loading />;

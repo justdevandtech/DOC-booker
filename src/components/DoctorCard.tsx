@@ -10,11 +10,11 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { openContactDOCModal } from "../features/modal/modalSlice";
-import { useAppDispatch } from '../app/hooks';
+import { useAppDispatch } from "../app/hooks";
 
 export const DoctorCard = ({ doctors }: any) => {
   const bgColor = useColorModeValue("white", "gray.900");
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const displayDoctors = doctors.map((doctor: any) => {
     return (
@@ -51,16 +51,22 @@ export const DoctorCard = ({ doctors }: any) => {
         <Text fontWeight={600} color={"gray.500"} mb={4}>
           {doctor.specialization}
         </Text>
-        <Text>
-          Experience: {doctor.experience} years
-        </Text>
+        <Text>Experience: {doctor.experience} years</Text>
         <Text>Address: {doctor.address}</Text>
         <Text>Email: {doctor.email}</Text>
         <Text>Tel: {doctor.phone}</Text>
-        <Text mt={3} textTransform='capitalize' rounded={'full'} mx={'auto'} width={'50%'} fontWeight='bold' bg={'green.200'}>{doctor.status}</Text>
-        <Box>
-          ${doctor.feeCharge}
-        </Box>
+        <Text
+          mt={3}
+          textTransform='capitalize'
+          rounded={"full"}
+          mx={"auto"}
+          width={"50%"}
+          fontWeight='bold'
+          bg={"green.200"}
+        >
+          {doctor.status}
+        </Text>
+        <Box>${doctor.feeCharge}</Box>
         <Stack mt={8} direction={"row"} spacing={4}>
           <Button
             flex={1}
@@ -96,13 +102,25 @@ export const DoctorCard = ({ doctors }: any) => {
       </Box>
     );
   });
-const contactDoctor = (doctorId: string) => {
-  dispatch(openContactDOCModal());
-};
+  const contactDoctor = (doctorId: string) => {
+    dispatch(openContactDOCModal());
+  };
 
-if (doctors?.length === 0) {
-  return <Center fontSize={'50px'} fontWeight='bold' mt={5}>No doctors found</Center>;
-}
+  if (doctors?.length === 0) {
+    return (
+      <Center display={'flex'} flexDirection='column' fontSize={"50px"} fontWeight='bold' mt={5}>
+        No doctors found
+        <br />
+        <Button mt={4}
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
+          Try refresh
+        </Button>
+      </Center>
+    );
+  }
   return (
     <SimpleGrid mt={4} columns={[2, null, 4]} spacing='20px'>
       {displayDoctors}
